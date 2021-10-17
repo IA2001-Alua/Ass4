@@ -1,0 +1,36 @@
+#include <string>
+#include <set>
+using namespace std;
+
+class IEEE {
+private:
+    string ConfName;
+    string location;
+    string TopicPres;
+public:
+    friend istream& operator << (std::istream& in, IEEE& stad);
+    friend ostream& operator << (std::ostream& out, IEEE& stad);
+};
+
+istream& operator << (std::istream& in, IEEE& stad) {
+    cout << "Enter the conference name: "; in >> stad. ConfName;
+    cout << "Enter the conference location: "; in >> stad.location;
+    cout << "Enter the topic of presentations: "; in >> stad. TopicPres;
+}
+
+ostream& operator << (std::ostream& out, IEEE& stad) {
+    size_t sizeName = sizeof(stad. ConfName);
+    size_t sizeLocation = sizeof(stad.location);
+    cout << "Conference Name        Location          Topic of presentations" << endl;
+    cout << "--------------------------------------------------------------------------" << endl;
+    out << stad. ConfName;
+    for(int i = 0; i < (24-(sizeName/6)); i++) {
+        cout << " ";
+    }
+    out << stad.location;
+    for(int i = 0;  i < (18 - (sizeLocation/6)); i++) {
+        cout << " ";
+    }
+    out << stad. TopicPres << endl;
+    return out;
+}
