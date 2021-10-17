@@ -1,0 +1,33 @@
+#include <string>
+class Course {
+private:
+    std::string nameOfCourse;
+    int numberOfStudents;
+    std::string lecturer;
+public:
+    friend std::istream& operator << (std::istream& in, Course& stad);
+    friend std::ostream& operator << (std::ostream& out, Course& stad);
+};
+
+std::istream& operator << (std::istream& in, Course& stad) {
+    std::cout << "Enter the name of course: "; in >> stad.nameOfCourse;
+    std::cout << "Enter the number of students: "; in>> stad.numberOfStudents;
+    std::cout << "Enter the lecturer: "; in >> stad.lecturer;
+}
+
+std::ostream& operator << (std::ostream& out, Course& stad) {
+    size_t sizeName = sizeof(stad.nameOfCourse);
+    size_t sizeLecturer = sizeof(stad.lecturer);
+    std::cout << "Name of the course        Number of students          Lecturer" << std::endl;
+    std::cout << "-----------------------------------------------------------------------" << std:: endl;
+    out << stad.nameOfCourse;
+    for(int i = 0; i < (26-(sizeName/6)); i++) {
+        std::cout << " ";
+    }
+    out << stad.numberOfStudents;
+    for(int i = 0;  i < (28 - (sizeLecturer/6)); i++) {
+        std::cout << " ";
+    }
+    out << stad.lecturer << std::endl;
+    return out;
+}
