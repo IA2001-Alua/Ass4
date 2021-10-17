@@ -1,0 +1,96 @@
+#include <iostream>
+#include "Student.h"
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+bool abc (int i) { return ((i%2)==1); }
+
+template <class InputIterator, class T>
+typename std::iterator_traits<InputIterator>::difference_type
+count (InputIterator ab, InputIterator bc, const T& val)
+{
+    typename std::iterator_traits<InputIterator>::difference_type return = 0;
+    while (ab.age!=bc.age) {
+        if (*ab.age == val) ++return;
+        ++ab.age;
+    }
+    return return;
+}
+
+template <class InputIterator, class T>
+typename std::iterator_traits<InputIterator>::difference_type
+find (InputIterator ab, InputIterator bc, const T& val)
+{
+    while (ab != bc) {
+        if (*ab == val) return ab;
+        ++ab;
+    }
+    return bc;
+}
+
+void function (int i) {
+    std::cout << ' ' << i;
+}
+
+template<class InputIterator, class func>
+func for_each(InputIterator ab, InputIterator bc, func fun)
+{
+    while (ab!=bc) {
+        fun (*ab);
+        ++ab;
+    }
+    return fun;
+}
+
+template <class InputIterator, class UnaryPredicate>
+typename iterator_traits<InputIterator>::difference_type
+count_if (InputIterator ab, InputIterator bc, UnaryPredicate predicate)
+{
+    typename iterator_traits<InputIterator>::difference_type return = 0;
+    while (ab!=bc) {
+        if (predicate(*ab)) ++return;
+        ++ab;
+    }
+    return return;
+}
+
+int main() {
+    //count
+    int numb[] = {10,20,30,30,20,10,10,20};
+    int forcount = std::count (numb, numb+8, 10);
+    std::cout << "10 appears " << forcount << " times.\n";
+
+    std::vector<int> vvec (numb, numb+8);
+    forcount = std::count (vvec.begin(), vvec.end(), 20);
+    std::cout << "20 appears " << forcount  << " times.\n";
+
+    //find
+    int * q;
+
+    q = std::find (numb, numb+8, 30);
+    if (q != numb + 8)
+        std::cout << "Element found in numb: " << *q << '\n';
+    else
+        std::cout << "Element not found in numb\n";
+
+    //for_each
+
+    std::cout << "arr contains:";
+    std::for_each(numb, numb+8, function);
+    std::cout << '\n';
+
+    //count if
+
+    forcount = std::count_if(numb, numb+8, abc);
+    std::cout << "arr contains " << forcount  << " odd values.\n";
+
+    //student
+    vector<Student> students;
+    Student student;
+    cin >> student;
+    students.push_back(student);
+    cout << student << endl;
+
+    return 0;
+}
